@@ -41,5 +41,3 @@ GoogleService-Info.plist
 
 # Temporary
 *.tmp
-
-lib/firebase_options.dart
