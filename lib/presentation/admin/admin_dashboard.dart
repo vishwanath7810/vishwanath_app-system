@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../services/auth_service.dart';
-import 'add_department_screen.dart';
+import 'department_screen.dart';
 
 class AdminDashboard extends StatelessWidget {
   const AdminDashboard({super.key});
@@ -12,19 +12,62 @@ class AdminDashboard extends StatelessWidget {
         title: const Text("Admin Dashboard"),
       ),
 
+      // 🔥 DRAWER
       drawer: Drawer(
         child: ListView(
+          padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
-              child: Text(
-                "Admin Menu",
-                style: TextStyle(fontSize: 18),
+
+            // 🔥 CUSTOM LOGO HEADER
+            // 🔥 CUSTOM LOGO HEADER FIXED
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 30),
+              color: Colors.white,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    height: 140, // increased properly
+                    child: Image.asset(
+                      "assets/images/logo VT.png",
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    "Admin Panel",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
               ),
             ),
+
+            // ✅ Department
+            ListTile(
+              leading: const Icon(Icons.apartment),
+              title: const Text("Department"),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const DepartmentScreen(),
+                  ),
+                );
+              },
+            ),
+
+            const Divider(),
+
+            // ✅ Logout
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text("Logout"),
               onTap: () async {
+                Navigator.pop(context);
                 await AuthService().logout();
               },
             ),
@@ -32,6 +75,7 @@ class AdminDashboard extends StatelessWidget {
         ),
       ),
 
+      // 🔥 BODY
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -49,20 +93,18 @@ class AdminDashboard extends StatelessWidget {
 
             const SizedBox(height: 40),
 
-            // 🔥 ADD DEPARTMENT BUTTON
+            // ✅ Department Button in Body
             ElevatedButton.icon(
-              icon: const Icon(Icons.add),
-              label: const Text("Add Department"),
+              icon: const Icon(Icons.apartment),
+              label: const Text("Department"),
               style: ElevatedButton.styleFrom(
-                padding:
-                const EdgeInsets.symmetric(vertical: 15),
+                padding: const EdgeInsets.symmetric(vertical: 15),
               ),
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) =>
-                    const AddDepartmentScreen(),
+                    builder: (_) => const DepartmentScreen(),
                   ),
                 );
               },
