@@ -77,16 +77,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
             .orderBy("createdAt", descending: true)
             .get(),
         builder: (context, snapshot) {
-          if (snapshot.connectionState ==
-              ConnectionState.waiting) {
-            return const Center(
-                child: CircularProgressIndicator());
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
           }
 
-          if (!snapshot.hasData ||
-              snapshot.data!.docs.isEmpty) {
-            return const Center(
-                child: Text("No Departments Available"));
+          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            return const Center(child: Text("No Departments Available"));
           }
 
           final departments = snapshot.data!.docs
@@ -94,7 +90,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
             doc.id,
             doc.data() as Map<String, dynamic>,
           ))
+              .where((dept) => dept.deletedStatus != true)   // 🔥 FILTER HERE
               .toList();
+
+          if (departments.isEmpty) {
+            return const Center(child: Text("No Active Departments"));
+          }
 
           return Padding(
             padding: const EdgeInsets.all(20),

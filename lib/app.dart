@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:vishwanath_app/presentation/teacher/teacher_dashboard.dart';
 
 import 'providers/auth_provider.dart';
 import 'presentation/auth/login_screen.dart';
@@ -84,8 +85,28 @@ class RoleBasedRouter extends StatelessWidget {
         // Role Routing
         if (role == "admin") {
           return const AdminDashboard();
+
+        } else if (role == "teacher") {
+          return const TeacherDashboard();
+
         } else if (role == "student") {
           return const StudentDashboard();
+
+        } else if (role == "canteen") {
+          return const Scaffold(
+            body: Center(child: Text("Canteen Dashboard Coming Soon")),
+          );
+
+        } else if (role == "librarian") {
+          return const Scaffold(
+            body: Center(child: Text("Librarian Dashboard Coming Soon")),
+          );
+
+        } else if (role == "staff") {
+          return const Scaffold(
+            body: Center(child: Text("Staff Dashboard Coming Soon")),
+          );
+
         } else {
           return Scaffold(
             body: Center(

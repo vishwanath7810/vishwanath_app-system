@@ -19,6 +19,7 @@ class AuthService {
       "role": "student",
       "departmentId": departmentId,
       "departmentName": departmentName,
+      "isActive": false,   // 🔥 ADD THIS
       "createdAt": FieldValue.serverTimestamp(),
     });
   }
@@ -27,13 +28,28 @@ class AuthService {
     final cred = await _auth.signInWithEmailAndPassword(
         email: email, password: password);
 
+    final uid = cred.user!.uid;
+
+    // 🔥 Set active true
+    await _db.collection("Users").doc(uid).update({
+      "isActive": true,
+    });
+
     final doc =
-    await _db.collection("Users").doc(cred.user!.uid).get();
+    await _db.collection("Users").doc(uid).get();
 
     return doc['role'];
   }
 
   Future<void> logout() async {
+    final uid = _auth.currentUser?.uid;
+
+    if (uid != null) {
+      await _db.collection("Users").doc(uid).update({
+        "isActive": false,
+      });
+    }
+
     await _auth.signOut();
   }
 }

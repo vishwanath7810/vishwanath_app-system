@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../services/auth_service.dart';
 import 'department_screen.dart';
+import 'employee_management_screen.dart';
 
 class AdminDashboard extends StatelessWidget {
   const AdminDashboard({super.key});
@@ -60,6 +61,20 @@ class AdminDashboard extends StatelessWidget {
               },
             ),
 
+            ListTile(
+              leading: const Icon(Icons.badge),
+              title: const Text("Employee Management"),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const EmployeeManagementScreen(),
+                  ),
+                );
+              },
+            ),
+
             const Divider(),
 
             // ✅ Logout
@@ -75,6 +90,7 @@ class AdminDashboard extends StatelessWidget {
         ),
       ),
 
+      // 🔥 BODY
       // 🔥 BODY
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -93,7 +109,7 @@ class AdminDashboard extends StatelessWidget {
 
             const SizedBox(height: 40),
 
-            // ✅ Department Button in Body
+            // ✅ Department Button
             ElevatedButton.icon(
               icon: const Icon(Icons.apartment),
               label: const Text("Department"),
@@ -105,6 +121,25 @@ class AdminDashboard extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (_) => const DepartmentScreen(),
+                  ),
+                );
+              },
+            ),
+
+            const SizedBox(height: 20),
+
+            // 🔥 NEW EMPLOYEE SECTION
+            ElevatedButton.icon(
+              icon: const Icon(Icons.badge),
+              label: const Text("Employee Management"),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 15),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const EmployeeManagementScreen(),
                   ),
                 );
               },

@@ -49,10 +49,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   ElevatedButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        await authService.login(
+                        final role = await authService.login(
                           emailController.text.trim(),
                           passwordController.text.trim(),
                         );
+
+                        if (role == "admin") {
+                          Navigator.pushReplacementNamed(context, "/admin");
+                        } else if (role == "teacher") {
+                          Navigator.pushReplacementNamed(context, "/teacher");
+                        } else {
+                          Navigator.pushReplacementNamed(context, "/student");
+                        }
                       }
                     },
                     child: const Text("Login"),

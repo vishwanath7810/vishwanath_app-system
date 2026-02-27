@@ -5,32 +5,42 @@ class DepartmentModel {
   final String name;
   final String hod;
   final String description;
-  final Timestamp createdAt;
+  final Timestamp? createdAt;
+  final bool deletedStatus;
+  final Timestamp? deletedAt;
 
   DepartmentModel({
     required this.id,
     required this.name,
     required this.hod,
     required this.description,
-    required this.createdAt,
+    this.createdAt,
+    required this.deletedStatus,
+    this.deletedAt,
   });
 
-  factory DepartmentModel.fromMap(String id, Map<String, dynamic> data) {
+  /// 🔥 FROM FIRESTORE MAP
+  factory DepartmentModel.fromMap(
+      String id, Map<String, dynamic> data) {
     return DepartmentModel(
       id: id,
       name: data['name'] ?? '',
       hod: data['hod'] ?? '',
       description: data['description'] ?? '',
       createdAt: data['createdAt'],
+      deletedStatus: data['deletedStatus'] ?? false,
+      deletedAt: data['deletedAt'],
     );
   }
 
+  /// 🔥 TO MAP
   Map<String, dynamic> toMap() {
     return {
       'name': name,
       'hod': hod,
       'description': description,
       'createdAt': FieldValue.serverTimestamp(),
+      'deletedStatus': false,
     };
   }
 }

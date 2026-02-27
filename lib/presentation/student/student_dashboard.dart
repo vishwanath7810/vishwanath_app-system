@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../services/auth_service.dart';
+
 class StudentDashboard extends StatelessWidget {
   const StudentDashboard({super.key});
 
@@ -15,7 +17,7 @@ class StudentDashboard extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: [
 
-            // 🔥 CUSTOM LOGO HEADER
+
             Container(
               padding: const EdgeInsets.symmetric(vertical: 30),
               color: Colors.white,
@@ -43,12 +45,15 @@ class StudentDashboard extends StatelessWidget {
 
             const Divider(),
 
-            // Example Drawer Item
+
+
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text("Logout"),
               onTap: () async {
                 Navigator.pop(context);
+
+                await AuthService().logout();
               },
             ),
           ],
