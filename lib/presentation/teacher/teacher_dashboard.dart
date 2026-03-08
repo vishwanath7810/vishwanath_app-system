@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vishwanath_app/presentation/teacher/sub_teacher_register_screen.dart';
 import '../../services/auth_service.dart';
 import 'active_students_screen.dart';
 
@@ -58,6 +59,20 @@ class TeacherDashboard extends StatelessWidget {
             ),
 
             ListTile(
+              leading: const Icon(Icons.person_add),
+              title: const Text("Add Sub Teacher"),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const SubTeacherRegisterScreen(),
+                  ),
+                );
+              },
+            ),
+
+            ListTile(
               leading: const Icon(Icons.logout),
               title: const Text("Logout"),
               onTap: () async {
@@ -83,11 +98,28 @@ class TeacherDashboard extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 15),
               ),
+
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (_) => const ActiveStudentsScreen(),
+                  ),
+                );
+              },
+            ),
+
+            const SizedBox(height: 20),
+
+            ElevatedButton.icon(
+              icon: const Icon(Icons.person_add),
+              label: const Text("Add Sub Teacher"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) =>
+                    const SubTeacherRegisterScreen(),
                   ),
                 );
               },

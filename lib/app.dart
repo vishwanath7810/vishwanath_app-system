@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:vishwanath_app/presentation/dataviewer/dataviewer_dashboard.dart';
+import 'package:vishwanath_app/presentation/student/student_profile_screen.dart';
+import 'package:vishwanath_app/presentation/teacher/sub_teacher_dashboard.dart';
 import 'package:vishwanath_app/presentation/teacher/teacher_dashboard.dart';
 
 import 'providers/auth_provider.dart';
@@ -19,12 +22,21 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Vishwanath App",
+
+      routes: {
+        "/studentDashboard": (context) => const StudentDashboard(),
+        "/studentProfile": (context) => const StudentProfileScreen(),
+        "/adminDashboard": (context) => const AdminDashboard(),
+        "/teacherDashboard": (context) => const TeacherDashboard(),
+        "/subTeacherDashboard": (context) => const SubTeacherDashboard(),
+        "/dataViewerDashboard": (context) => const DataViewerDashboard(),
+      },
+
       home: authState.when(
         data: (user) {
           if (user == null) {
             return const LoginScreen();
           }
-
           return RoleBasedRouter(user: user);
         },
         loading: () => const Scaffold(
@@ -107,7 +119,17 @@ class RoleBasedRouter extends StatelessWidget {
             body: Center(child: Text("Staff Dashboard Coming Soon")),
           );
 
-        } else {
+        }
+        else if (role == "sub_teacher") {
+          return const SubTeacherDashboard();
+        }
+        else if (role == "dataviewer") {
+          return const DataViewerDashboard();
+        }
+        else if (role == "View Profile") {
+          return const StudentProfileScreen();
+        }
+        else {
           return Scaffold(
             body: Center(
               child: Text(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../services/auth_service.dart';
+import 'dataviewer_register_screen.dart';
 import 'department_screen.dart';
 import 'employee_management_screen.dart';
 
@@ -86,12 +87,25 @@ class AdminDashboard extends StatelessWidget {
                 await AuthService().logout();
               },
             ),
+            ListTile(
+              leading: const Icon(Icons.visibility),
+              title: const Text("Create DataViewer"),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const DataViewerRegisterScreen(),
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),
 
       // 🔥 BODY
-      // 🔥 BODY
+
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -140,6 +154,24 @@ class AdminDashboard extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (_) => const EmployeeManagementScreen(),
+                  ),
+                );
+              },
+            ),
+
+            const SizedBox(height: 20),
+
+            ElevatedButton.icon(
+              icon: const Icon(Icons.visibility),
+              label: const Text("Create DataViewer"),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 15),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const DataViewerRegisterScreen(),
                   ),
                 );
               },
